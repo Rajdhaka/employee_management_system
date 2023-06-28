@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Service
-public class EmployeeService {
+public class  EmployeeService {
     @Autowired
     IEmployeeDao employeeDao;
 
@@ -105,7 +105,7 @@ public class EmployeeService {
         return employeeDao.findAll();
     }
 
-    public ResponseEntity<String> updateEmployee(Long employeeId, Employee employee) {
+    public ResponseEntity<String> updateEmployee(Integer employeeId, Employee employee) {
         employee.setEmployeeSalary(-1);
         employee.setEmployeeJobRole("");
         if(employeeDao.findById(employeeId).isEmpty()){
@@ -133,6 +133,4 @@ public class EmployeeService {
 
         return new ResponseEntity<>("Employee updated successfully !!", HttpStatus.OK);
     }
-
-
 }

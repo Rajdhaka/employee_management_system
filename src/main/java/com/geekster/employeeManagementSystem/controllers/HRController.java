@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/v1/hr")
+@RequestMapping("/hr")
 public class HRController {
 
     @Autowired
@@ -21,9 +23,13 @@ public class HRController {
         return hrService.addHR(hr);
 
     }
-    @PutMapping(value = "/employeeId/employee")
-    public ResponseEntity<String>updateEmployeeDetails(@PathVariable int employeeId, @RequestBody Employee employee){
-        return hrService.updateEmployeeDetails(employeeId,employee);
+    @PutMapping(value = "hrId/employeeId")
+    public ResponseEntity<String>updateEmployeeDetails(@PathVariable long hrId, @PathVariable int employeeId, @RequestBody Employee employee){
+        return hrService.updateEmployeeDetails(hrId,employeeId,employee);
+    }
+    @DeleteMapping(value = "hrId/employeeId")
+    public ResponseEntity<String>deleteEmployee(@PathVariable long hrId, @PathVariable int employeeId){
+        return hrService.deleteEmployee(hrId,employeeId);
     }
 }
 

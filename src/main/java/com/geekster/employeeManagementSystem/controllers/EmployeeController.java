@@ -3,6 +3,7 @@ package com.geekster.employeeManagementSystem.controllers;
 import com.geekster.employeeManagementSystem.dto.SignInInput;
 import com.geekster.employeeManagementSystem.dto.SignInOutput;
 import com.geekster.employeeManagementSystem.dto.SignUpOutput;
+import com.geekster.employeeManagementSystem.models.AuthenticationToken;
 import com.geekster.employeeManagementSystem.models.Employee;
 import com.geekster.employeeManagementSystem.services.EmployeeService;
 import com.geekster.employeeManagementSystem.services.TokenService;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/employee")
+@RequestMapping("/employee")
 public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
@@ -59,15 +60,24 @@ public class EmployeeController {
         return new ResponseEntity<String>(msg , status);
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateEmployee(@PathVariable Long employeeId,@RequestBody Employee employee){
-        return employeeService.updateEmployee(employeeId,employee);
+    @PutMapping("/employeeId/{employeeId}")
+    public ResponseEntity<String> updateEmployee(@RequestParam String token, @RequestParam@PathVariable String employeeEmailId, int employeeId, @RequestBody Employee employee){
+
+        if(authService.authenticate(employeeEmailId,token))
+        {
+            return employeeService.updateEmployee(employeeId,employee);
+
+        }
+        return new ResponseEntity<String>("Employee does not exist",HttpStatus.BAD_REQUEST);
+
     }
+
+
 
 
 }

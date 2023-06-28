@@ -2,7 +2,7 @@ package com.geekster.employeeManagementSystem.services;
 
 import com.geekster.employeeManagementSystem.models.AuthenticationToken;
 import com.geekster.employeeManagementSystem.models.Employee;
-import com.geekster.employeeManagementSystem.repositories.ITokenRepo;
+import com.geekster.employeeManagementSystem.repositories.ITokenDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class TokenService {
 
     @Autowired
-    ITokenRepo tokenRepo;
+    ITokenDao tokenRepo;
     public void saveToken(AuthenticationToken token) {
         tokenRepo.save(token);
     }

@@ -7,7 +7,10 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.LifecycleState;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -33,5 +36,8 @@ public class HR {
 
     @Length(min = 10, max = 10)
     private String HRPhoneNO;
+
+    @OneToMany()
+    List<Employee> listEmployee;
 
 }
